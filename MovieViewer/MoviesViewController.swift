@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AFNetworking
+import MBProgressHUD
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
@@ -32,8 +34,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             delegateQueue: NSOperationQueue.mainQueue()
         )
         
+         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        
         let task: NSURLSessionDataTask = session.dataTaskWithRequest(request,
             completionHandler: { (dataOrNil, response, error) in
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
@@ -67,13 +72,21 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let movie = movies![indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
+        let posterPath = movie["poster_path"] as! String
+        let baseUrl = "http://image.tmdb.org/t/p/w500"
+        let imageUrl = NSURL(string:baseUrl + posterPath)
+        
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
+        cell.posterView.setImageWithURL(imageUrl!)
+        
         print("row \(indexPath.row)")
         return cell
     }
     
-
+        
+    
+    }
 
     /*
     // MARK: - Navigation
@@ -85,4 +98,4 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     */
 
-}
+
