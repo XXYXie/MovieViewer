@@ -10,8 +10,13 @@ import UIKit
 import AFNetworking
 import MBProgressHUD
 
-class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    // For Search Bar
+    var filteredData: [String]!
     
     var movies: [NSDictionary]?
     override func viewDidLoad() {
@@ -25,7 +30,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         tableView.dataSource = self
         tableView.delegate = self
+        searchBar.delegate = self
         
+        //  filteredData = data
         // Do any additional setup after loading the view.
 
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
@@ -52,8 +59,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                             print("response: \(responseDictionary)")
                             self.movies = responseDictionary["results"] as? [NSDictionary]
                             self.tableView.reloadData()
+                    
                     }
                 }
+                
+            
         })
         task.resume()
     }
@@ -69,24 +79,32 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         }else{
             return 0
         }
+
+  //      return filteredData.count
         
     }
   
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell",forIndexPath: indexPath) as! MovieCell
-      
+        
+        //cell.textLabel?.text = filteredData[indexPath.row]
+        
         let movie = movies![indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
-        let posterPath = movie["poster_path"] as! String
-        let baseUrl = "http://image.tmdb.org/t/p/w500"
-        let imageUrl = NSURL(string:baseUrl + posterPath)
-        
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
-        cell.posterView.setImageWithURL(imageUrl!)
         
+        let baseUrl = "http://image.tmdb.org/t/p/w500"
+     
+        
+        if let posterPath = movie["poster_path"] as? String{
+            let posterUrl = NSURL(string: baseUrl + posterPath)
+            let imageUrl = NSURL(string:baseUrl + posterPath)
+            cell.posterView.setImageWithURL(imageUrl!)
+        }
+    
         print("row \(indexPath.row)")
         return cell
     }
@@ -114,18 +132,72 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         });
         task.resume()
     }
+    
+    /*func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredData = searchText.isEmpty ? data : data.filter({(dataString: String) -> Bool in
+            return dataString.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
+        })
         
+    }
+  */
+    
+    /* //This method updates filteredData based on the text in the Search Box
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        // When there is no text, filteredData is the same as the original data
+        if searchText.isEmpty {
+            filteredData = data
+        } else {
+            // The user has entered text into the search box
+            // Use the filter method to iterate over all items in the data array
+            // For each item, return true if the item should be included and false if the
+            // item should NOT be included
+            filteredData = data.filter({(dataItem: String) -> Bool in
+                // If dataItem matches the searchText, return true to include it
+                if dataItem.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil {
+                    return true
+                } else {
+                    return false
+                }
+            })
+        }
+        tableView.reloadData()
+    }
+    */
+    
+    /*// Show cancel button
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+    }
+    
+    // Hide the Cancel button, clear existing text in search bar and hide the keyboard
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
     
     }
+*/
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+            let cell = sender as! UITableViewCell
+            let indexPath = tableView.indexPathForCell(cell)
+            let movie = movies![indexPath!.row]
+        
+            let detailViewController = segue.destinationViewController as! DetailViewController
+        
+            detailViewController.movie = movie
+        
+            print("prepare for segue called")
+        
+    }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+
 
 
