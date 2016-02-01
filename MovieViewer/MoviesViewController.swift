@@ -19,9 +19,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     var filteredData: [NSDictionary]!
     
     var movies: [NSDictionary]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
@@ -33,7 +34,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         searchBar.delegate = self
         
         // Do any additional setup after loading the view.
-
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
         let request = NSURLRequest(
