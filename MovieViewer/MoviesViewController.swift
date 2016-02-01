@@ -16,7 +16,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var searchBar: UISearchBar!
     
     // For Search Bar
-    var filteredData: [String]!
+    var filteredData: [NSDictionary]!
     
     var movies: [NSDictionary]?
     override func viewDidLoad() {
@@ -32,7 +32,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.delegate = self
         searchBar.delegate = self
         
-        //  filteredData = data
         // Do any additional setup after loading the view.
 
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
@@ -58,6 +57,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                         data, options:[]) as? NSDictionary {
                             print("response: \(responseDictionary)")
                             self.movies = responseDictionary["results"] as? [NSDictionary]
+                            self.filteredData = self.movies
                             self.tableView.reloadData()
                     
                     }
@@ -74,13 +74,16 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        if let movies = movies{
+       /* if let movies = movies{
             return movies.count
         }else{
             return 0
         }
-
-  //      return filteredData.count
+*/
+        if(filteredData == nil){
+            return 0
+        }
+        return filteredData.count
         
     }
   
@@ -90,7 +93,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         //cell.textLabel?.text = filteredData[indexPath.row]
         
-        let movie = movies![indexPath.row]
+        //let movie = movies![indexPath.row]
+        let movie = filteredData![indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         cell.titleLabel.text = title
@@ -133,27 +137,21 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         task.resume()
     }
     
-    /*func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredData = searchText.isEmpty ? data : data.filter({(dataString: String) -> Bool in
-            return dataString.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
-        })
-        
-    }
-  */
-    
-    /* //This method updates filteredData based on the text in the Search Box
+  
+
+    //This method updates filteredData based on the text in the Search Box
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         // When there is no text, filteredData is the same as the original data
         if searchText.isEmpty {
-            filteredData = data
+            filteredData = movies
         } else {
             // The user has entered text into the search box
             // Use the filter method to iterate over all items in the data array
             // For each item, return true if the item should be included and false if the
             // item should NOT be included
-            filteredData = data.filter({(dataItem: String) -> Bool in
+            filteredData = movies!.filter({(movie: NSDictionary) -> Bool in
                 // If dataItem matches the searchText, return true to include it
-                if dataItem.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil {
+                if (movie["title"]as! String).rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil {
                     return true
                 } else {
                     return false
@@ -162,9 +160,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         }
         tableView.reloadData()
     }
-    */
     
-    /*// Show cancel button
+    
+    // Show cancel button
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         self.searchBar.showsCancelButton = true
     }
@@ -176,8 +174,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         searchBar.resignFirstResponder()
     }
     
-    }
-*/
+   
 
     // MARK: - Navigation
 
@@ -197,7 +194,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-    }
+    
 
 
-
+}
