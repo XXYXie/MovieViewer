@@ -2,7 +2,7 @@
 
 **Flicks** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: 5 hours spent in total
+Time spent: 8 hours spent in total
 
 ## User Stories
 
@@ -63,7 +63,7 @@ I accidentally typed "result" instead of "results" in my code, which showed a bl
 
 **Flicks** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **X** hours spent in total
+Time spent: 1 hours spent in total
 
 ## User Stories
 
