@@ -81,27 +81,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="bMn-ZF-MT7">
-                                <rect key="frame" x="0.0" y="53" width="320" height="515"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="RkU-dQ-bcz">
+                                <rect key="frame" x="0.0" y="63" width="320" height="505"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Vs4-Lw-qOd">
-                                        <rect key="frame" x="0.0" y="-136" width="320" height="651"/>
+                                        <rect key="frame" x="0.0" y="-141" width="320" height="646"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <view alpha="0.80000000000000004" contentMode="scaleToFill" id="t7j-AK-2ig">
-                                        <rect key="frame" x="0.0" y="515" width="320" height="278"/>
+                                        <rect key="frame" x="0.0" y="505" width="320" height="261"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DBW-TC-KFl">
-                                                <rect key="frame" x="8" y="219" width="312" height="23"/>
+                                                <rect key="frame" x="8" y="29" width="312" height="23"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Overview" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jye-dZ-86O">
-                                                <rect key="frame" x="8" y="259" width="312" height="171"/>
+                                                <rect key="frame" x="8" y="60" width="312" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -117,10 +117,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="qMV-b8-zOe"/>
                     <connections>
-                        <outlet property="infoView" destination="t7j-AK-2ig" id="y4O-Ko-p9Q"/>
+                        <outlet property="infoView" destination="t7j-AK-2ig" id="Dau-L8-Sts"/>
                         <outlet property="overviewLabel" destination="Jye-dZ-86O" id="xUL-bm-mvH"/>
                         <outlet property="posterImageView" destination="Vs4-Lw-qOd" id="joU-PX-Hmm"/>
-                        <outlet property="scrollView" destination="bMn-ZF-MT7" id="aA5-VU-Wxe"/>
+                        <outlet property="scrollView" destination="RkU-dQ-bcz" id="odU-jJ-UNX"/>
                         <outlet property="titleLabel" destination="DBW-TC-KFl" id="8DC-Xa-Izq"/>
                     </connections>
                 </viewController>
@@ -131,7 +131,7 @@
         <!--Navigation Controller-->
         <scene sceneID="qfg-29-OGM">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="I23-i6-sQ5" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MoviesNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="I23-i6-sQ5" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="552-4M-4mt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

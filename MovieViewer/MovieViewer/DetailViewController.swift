@@ -14,7 +14,6 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     
-    
     @IBOutlet weak var overviewLabel: UILabel!
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -29,7 +28,6 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         // scrollView content size:
-        // height is the y we just set.
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
         
         let title = movie["title"] as?String
@@ -37,6 +35,8 @@ class DetailViewController: UIViewController {
         
         let overview = movie["overview"] as?String
         overviewLabel.text = overview
+        // size fit:
+        overviewLabel.sizeToFit()
         let baseUrl = "http://image.tmdb.org/t/p/w500"
         
         
