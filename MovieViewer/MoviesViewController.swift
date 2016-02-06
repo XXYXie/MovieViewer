@@ -35,6 +35,23 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.delegate = self
         searchBar.delegate = self
         
+        // Customize search bar
+        self.navigationItem.title = "Movies"
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.setBackgroundImage(UIImage(named: "codepath-logo"), forBarMetrics: .Default)
+            navigationBar.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+            
+            let shadow = NSShadow()
+            shadow.shadowColor = UIColor.grayColor().colorWithAlphaComponent(0.5)
+            shadow.shadowOffset = CGSizeMake(2, 2);
+            shadow.shadowBlurRadius = 4;
+            navigationBar.titleTextAttributes = [
+                NSFontAttributeName : UIFont.boldSystemFontOfSize(22),
+                NSForegroundColorAttributeName : UIColor(red: 0, green: 0, blue: 0, alpha: 0.8),
+                NSShadowAttributeName : shadow
+            ]
+        }
+        
         // Do any additional setup after loading the view.
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string: "https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
@@ -102,6 +119,15 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
         
+        // No color when the user selects cell
+        cell.selectionStyle = .None
+        
+        // Use a red color when the user selects the cell
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.redColor()
+        cell.selectedBackgroundView = backgroundView
+
+        
         let baseUrl = "http://image.tmdb.org/t/p/w500"
      
         
@@ -164,12 +190,12 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     
-    // Show cancel button
+    // Show cancel button (SearchBar)
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         self.searchBar.showsCancelButton = true
     }
     
-    // Hide the Cancel button, clear existing text in search bar and hide the keyboard
+    // Hide the Cancel button, clear existing text in search bar and hide the keyboard(SearchBar)
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
         searchBar.text = ""
@@ -179,7 +205,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
    
 
     // MARK: - Navigation
-
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
@@ -194,8 +221,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             print("prepare for segue called")
         
     }
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    
+
     
 
 
