@@ -120,11 +120,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         cell.overviewLabel.text = overview
         
         // No color when the user selects cell
-        cell.selectionStyle = .None
+        //cell.selectionStyle = .None
         
         // Use a red color when the user selects the cell
         let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor.redColor()
+        backgroundView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.2)
         cell.selectedBackgroundView = backgroundView
 
         
